@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('sale', function (Blueprint $table) {
             $table->id();
             $table->float("total_value");
-            $table->integer("id_client");
+            $table->unsignedBigInteger("id_client");
             $table->timestamps();
 
             $table->foreign('id_client')->references('id')->on('client');
