@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Sale extends Model {
     use hasFactory;
 
+    protected $table = 'sale';
+
     protected $fillable = [
         'id',
         'id_client',

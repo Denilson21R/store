@@ -8,15 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model {
     use hasFactory;
 
+    protected $table = 'user';
+
     protected $fillable = [
         'id',
         'name',
         'login',
         'created_at',
-        'updated_at'
-    ];
-
-    protected $hidden = [
-        'password',
+        'updated_at',
+        'password'
     ];
 }
