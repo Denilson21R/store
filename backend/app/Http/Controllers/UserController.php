@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
+//TODO: implement JWT in update and delete endpoints
 class UserController extends Controller
 {
     public function auth(Request $request){
@@ -29,7 +31,7 @@ class UserController extends Controller
                 ->where('login', $credentials['login'])
                 ->update(['api_key' => $apikey]);
 
-            return response()->json(['status' => 'success','api_key' => $apikey]);
+            return response()->json(['status' => 'success','api_key' => $apikey], 200);
         }else{
             return response()->json(['status' => 'fail'],401);
         }
@@ -48,13 +50,46 @@ class UserController extends Controller
         $user = User::create($user_data);
 
         if($user->save()){
-            return response()->json($user->getAttributes(), 200);
+            return response()->json($user->getAttributes(), 201);
         }else{
             return response()->json(['error' => 'an error occurred while save user'], 500);
         }
     }
 
-    //TODO: update user data
 
-    //TODO: delete user
+    public function updateUser(Request $request, int $id){
+        $this->validate($request, [
+            'name' => 'required',
+            'login' => 'required',
+            'password' => 'required',
+        ]);
+
+        $user = User::where('id', $id)->first();
+
+        if(!empty($user)){
+            $user->name = $request->name;
+            $user->login = $request->login;
+            $user->password = Hash::make($request->password);
+
+            if($user->save()){
+                return response()->json(['status' => 'success', 'data' => $user->getAttributes()], 200);
+            }else{
+                return response()->json(['error' => 'an error occurred while update user'], 500);
+            }
+        }else{
+            return response()->json(['error' => 'user not found'], 404);
+        }
+
+    }
+
+    public function deleteUser(Request $request, int $id){
+        $user = User::where('id', $id)->first();
+
+        if(!empty($user)){
+            $user->delete();
+            return response()->json([], 204);
+        }else{
+            return response()->json(['error' => 'user not found'], 404);
+        }
+    }
 }
