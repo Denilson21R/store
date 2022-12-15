@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-//TODO: implement JWT in update and delete endpoints
 class UserController extends Controller
 {
-    public function auth(Request $request){
+    public function auth(Request $request) : JsonResponse {
         $this->validate($request, [
             'login' => 'required',
             'password' => 'required'
@@ -37,7 +36,7 @@ class UserController extends Controller
         }
     }
 
-    public function signUp(Request $request){
+    public function signUp(Request $request) : JsonResponse {
         $this->validate($request, [
             'name' => 'required',
             'login' => 'required',
@@ -57,7 +56,7 @@ class UserController extends Controller
     }
 
 
-    public function updateUser(Request $request, int $id){
+    public function updateUser(Request $request, int $id) : JsonResponse {
         $this->validate($request, [
             'name' => 'required',
             'login' => 'required',
@@ -82,7 +81,7 @@ class UserController extends Controller
 
     }
 
-    public function deleteUser(Request $request, int $id){
+    public function deleteUser(Request $request, int $id) : JsonResponse {
         $user = User::where('id', $id)->first();
 
         if(!empty($user)){

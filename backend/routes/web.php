@@ -15,3 +15,21 @@ $router->put('/api/user/{id}', 'UserController@updateUser');
 $router->delete('/api/user/{id}', 'UserController@deleteUser');
 
 $router->get('/api/client', 'ClientController@getAllClients');
+
+$router->get('/api/client/{id}', 'ClientController@getClientById');
+
+$router->post('/api/client', 'ClientController@addClient');
+
+$router->put('/api/client/{id}', 'ClientController@updateClient');
+
+$router->delete('/api/client/{id}', 'ClientController@deleteClient');
+
+$router->get('/api/product', 'ProductController@getAllProducts');
+
+$router->get('/api/product/{id}', 'ProductController@getProductById');
+
+$router->post('/api/product', 'ProductController@addProduct');
+
+$router->put('/api/product/{id}', 'ProductController@updateProduct');
+
+$router->delete('/api/product/{id}', 'ProductController@deleteProduct');
