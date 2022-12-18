@@ -76,6 +76,7 @@ class SaleController extends Controller
         if(Auth::check()){
             $sale = Sale::where('id', $id)->first();
             if(!empty($sale)){
+                $this->deleteProductsOfSaleBySaleId($id);
                 $sale->delete();
                 return response()->json([], 204);
             }else{
@@ -84,5 +85,12 @@ class SaleController extends Controller
         }else{
             return response()->json(['status' => 'fail'], 401);
         }
+    }
+
+    public function deleteProductsOfSaleBySaleId(int $id): void
+    {
+        DB::table("sale_product")
+            ->where('id_sale', $id)
+            ->delete();
     }
 }

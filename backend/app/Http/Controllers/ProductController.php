@@ -6,7 +6,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-//TODO: fix when update and save product with value 6.5, in mysql is saved 7
 class ProductController extends Controller
 {
     public function __construct(){

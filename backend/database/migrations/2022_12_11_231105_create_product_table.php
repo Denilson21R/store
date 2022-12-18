@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("name")->unique();
             $table->string("description");
-            $table->boolean("value");
+            $table->decimal("value", 9, 2);
             $table->timestamps();
         });
     }
