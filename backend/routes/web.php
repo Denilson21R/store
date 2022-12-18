@@ -33,3 +33,11 @@ $router->post('/api/product', 'ProductController@addProduct');
 $router->put('/api/product/{id}', 'ProductController@updateProduct');
 
 $router->delete('/api/product/{id}', 'ProductController@deleteProduct');
+
+$router->get('/api/sale', 'SaleController@getAllSales');
+
+$router->get('/api/sale/{id}', 'SaleController@getSaleById');
+
+$router->post('/api/sale', 'SaleController@addSale');
+
+$router->delete('/api/sale/{id}', 'SaleController@deleteSale');
