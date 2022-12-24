@@ -78,7 +78,6 @@ class UserController extends Controller
         }else{
             return response()->json(['error' => 'user not found'], 404);
         }
-
     }
 
     public function deleteUser(Request $request, int $id) : JsonResponse {
