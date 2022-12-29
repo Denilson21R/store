@@ -85,4 +85,45 @@ class ProductControllerTest extends TestCase
             ]
         );
     }
+
+    public function testCanUpdateProduct()
+    {
+        //prepare
+        $token_jwt = $this->authenticate();
+
+        $product = Product::factory()->create();
+        $product_new_data = Product::factory()->make();
+        $params_request_update = [
+            "name" => $product_new_data->name,
+            "description" => $product_new_data->description,
+            "value" => $product_new_data->value
+        ];
+
+        //act
+        $product = $this->put("/api/product/".$product->id, $params_request_update, ['Authorization' => $token_jwt]);
+
+        //assert
+        $product->assertResponseStatus(200);
+        $product->seeJsonStructure(
+            [
+                'status',
+                'data'
+            ]
+        );
+    }
+
+    public function testCanDeleteProduct()
+    {
+        //prepare
+        $token_jwt = $this->authenticate();
+
+        $product = Product::factory()->create();
+
+        //act
+        $result = $this->delete('/api/product/'.$product->id, [] ,['Authorization' => $token_jwt]);
+
+        //assert
+        $result->assertResponseStatus(204);
+        $this->notSeeInDatabase('product', $product->getAttributes());
+    }
 }

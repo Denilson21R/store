@@ -17,4 +17,14 @@ class Product extends Model {
         'created_at',
         'updated_at'
     ];
+
+    public function sales()
+    {
+        return $this->belongsToMany(
+            Sale::class,
+            'sale_product',
+            'id_product',
+            'id_sale'
+        );
+    }
 }
