@@ -28,6 +28,44 @@ class SaleControllerTest extends TestCase
         return "bearer " . $result->response->json()["api_key"];
     }
 
+    public function testCanGetAllSales()
+    {
+        //prepare
+        $token_jwt = $this->authenticate();
+
+        //act
+        $sales = $this->get("/api/sale", ['Authorization' => $token_jwt]);
+
+        //assert
+        $sales->assertResponseStatus(200);
+        $sales->seeJsonStructure(
+            [
+                'status',
+                'data'
+            ]
+        );
+    }
+
+    public function testCanGetSaleById()
+    {
+        //prepare
+        $token_jwt = $this->authenticate();
+
+        $sale = Sale::factory()->create();
+
+        //act
+        $sale = $this->get("/api/sale/".$sale->id, ['Authorization' => $token_jwt]);
+
+        //assert
+        $sale->assertResponseStatus(200);
+        $sale->seeJsonStructure(
+            [
+                'status',
+                'data'
+            ]
+        );
+    }
+
     public function testCanAddSale()
     {
         //prepare
@@ -59,12 +97,19 @@ class SaleControllerTest extends TestCase
         );
     }
 
-    private function filterArrayOfProducts(mixed $products): array
+    //delete sale
+    public function testCanDeleteSale()
     {
-        $products_array = [];
-        foreach ($products as $product){
-            $products_array[] = $product->id;
-        }
-        return $products_array;
+        //prepare
+        $token_jwt = $this->authenticate();
+
+        $sale = Sale::factory()->create();
+
+        //act
+        $result = $this->delete('/api/sale/'.$sale->id, [] ,['Authorization' => $token_jwt]);
+
+        //assert
+        $result->assertResponseStatus(204);
+        $this->notSeeInDatabase('sale', $sale->getAttributes());
     }
 }
