@@ -1,11 +1,9 @@
 <template>
-signup
+Signup
 </template>
 
 <script>
-
 </script>
 
 <style scoped>
-
 </style>

@@ -1,16 +1,13 @@
+<template>
+  home
+</template>
+
 <script>
-import MenuLanding from "@/components/Menu.vue";
 export default {
-  components: {MenuLanding}
+  name: "HomeView"
 }
 </script>
 
-<template>
-  <MenuLanding/>
-</template>
-
 <style scoped>
-  nav{
-    font-size: 18px;
-  }
+
 </style>
