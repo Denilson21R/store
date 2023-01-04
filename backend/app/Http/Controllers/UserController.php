@@ -30,7 +30,7 @@ class UserController extends Controller
                 ->where('login', $credentials['login'])
                 ->update(['api_key' => $apikey]);
 
-            return response()->json(['status' => 'success','api_key' => $apikey], 200);
+            return response()->json(['status' => 'success','api_key' => $apikey, 'id' => $user->id], 200);
         }else{
             return response()->json(['status' => 'fail'],401);
         }
