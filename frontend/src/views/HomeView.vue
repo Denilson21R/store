@@ -1,5 +1,5 @@
 <template>
-  <MenuHome></MenuHome>
+  <MenuHome tab="home"/>
   <div class="main m-6">
     <div>Id: {{ id }}</div>
     <div>Login: {{ login }}</div>
@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import MenuHome from "@/components/Menu.vue";
+import MenuHome from "@/components/MenuHome.vue";
 
 export default {
   components: {MenuHome},

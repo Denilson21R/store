@@ -1,7 +1,7 @@
 <script>
 import MenuLanding from "@/components/MenuLanding.vue";
 export default {
-  name: 'Landing',
+  name: 'LandingView',
   components: {MenuLanding}
 }
 </script>
