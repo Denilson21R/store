@@ -1,35 +1,26 @@
 <template>
-  <nav class="navbar m-1" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand ml-6">
-      <RouterLink to="/">
-        <a class="navbar-item">
-          Lanchonete
-        </a>
-      </RouterLink>
-    </div>
-    <div class="navbar-menu">
-      <div class="navbar-start ml-6">
-        <RouterLink to="/">
-          <a class="navbar-item">
-            Sobre
-          </a>
-        </RouterLink>
-      </div>
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
-            <RouterLink to="/login"><button class="button is-black m-1">Login</button></RouterLink>
-            <RouterLink to="/signup"><button class="button is-dark m-1">Cadastro</button></RouterLink>
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <div class="tabs is-medium is-toggle is-centered m-6">
+    <ul>
+      <li class="is-active"><a>Início</a></li>
+      <li><a>Clientes</a></li>
+      <li><a>Produtos</a></li>
+      <li><a>Vendas</a></li>
+    </ul>
+    <button class="button is-danger" @click="logout">Sair</button>
+  </div>
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
-  name: "menu-landing"
+  name: "MenuHome",
+  methods: {
+    logout(){
+      sessionStorage.clear()
+      router.push({path: '/'})
+    }
+  }
 }
 </script>
 

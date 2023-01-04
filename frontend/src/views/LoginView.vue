@@ -28,7 +28,7 @@
 import axios from 'axios'
 import router from "@/router";
 import * as bulmaToast from 'bulma-toast'
-import MenuLanding from "@/components/Menu.vue";
+import MenuLanding from "@/components/MenuLanding.vue";
 
 export default {
   components: {MenuLanding},

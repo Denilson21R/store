@@ -1,5 +1,5 @@
 <script>
-import MenuLanding from "@/components/Menu.vue";
+import MenuLanding from "@/components/MenuLanding.vue";
 export default {
   name: 'Landing',
   components: {MenuLanding}
