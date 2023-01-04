@@ -1,25 +1,19 @@
 <template>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
+  <nav class="navbar m-1" role="navigation" aria-label="main navigation">
     <div class="navbar-brand ml-6">
-      <a class="navbar-item">
-        Lanchonete
-      </a>
-    </div>
-    <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-start ml-6">
-        <a class="navbar-item is-hoverable">
-          Início
+      <RouterLink to="/">
+        <a class="navbar-item">
+          Lanchonete
         </a>
-        <div class="navbar-item has-dropdown is-hoverable ml-6">
-          <a class="navbar-link">
-            More
+      </RouterLink>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start ml-6">
+        <RouterLink to="/">
+          <a class="navbar-item">
+            Sobre
           </a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item">
-              About
-            </a>
-          </div>
-        </div>
+        </RouterLink>
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
