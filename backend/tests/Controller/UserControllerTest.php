@@ -59,7 +59,8 @@ class UserControllerTest extends TestCase
         $result->seeJsonStructure(
             [
                 'status',
-                'api_key'
+                'api_key',
+                'id'
             ]
         );
     }
