@@ -93,4 +93,32 @@ class SaleController extends Controller
             ->where('id_sale', $id)
             ->delete();
     }
+
+    public function getSaleQty(Request $request){
+        if(Auth::check()) {
+            $qtdd = Sale::all()->count();
+            return response()->json(['quantity' => $qtdd], 200);
+        }else{
+            return response()->json(['status' => 'fail'], 401);
+        }
+    }
+
+    public function getSaleTotalAmount(Request $request){
+        if(Auth::check()) {
+            $total_amount = $this->getTotalAmountOfSalesArray();
+            return response()->json(['total_amount' => $total_amount], 200);
+        }else{
+            return response()->json(['status' => 'fail'], 401);
+        }
+    }
+
+    public function getTotalAmountOfSalesArray(): float
+    {
+        $sales = Sale::all();
+        $total_amount = 0;
+        foreach ($sales as $sale) {
+            $total_amount += $sale->total_value;
+        }
+        return $total_amount;
+    }
 }

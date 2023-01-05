@@ -126,4 +126,20 @@ class ProductControllerTest extends TestCase
         $result->assertResponseStatus(204);
         $this->notSeeInDatabase('product', $product->getAttributes());
     }
+
+    public function testCanGetProductQuantity(){
+        //prepare
+        $token_jwt = $this->authenticate();
+
+        //act
+        $result = $this->get('/api/product-qtdd' ,['Authorization' => $token_jwt]);
+
+        //assert
+        $result->assertResponseStatus(200);
+        $result->seeJsonStructure(
+            [
+                'quantity'
+            ]
+        );
+    }
 }

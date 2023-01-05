@@ -112,4 +112,36 @@ class SaleControllerTest extends TestCase
         $result->assertResponseStatus(204);
         $this->notSeeInDatabase('sale', $sale->getAttributes());
     }
+
+    public function testCanGetSaleQuantity(){
+        //prepare
+        $token_jwt = $this->authenticate();
+
+        //act
+        $result = $this->get('/api/sale-qtdd' ,['Authorization' => $token_jwt]);
+
+        //assert
+        $result->assertResponseStatus(200);
+        $result->seeJsonStructure(
+            [
+                'quantity'
+            ]
+        );
+    }
+
+    public function testCanGetSaleTotalAmount(){
+        //prepare
+        $token_jwt = $this->authenticate();
+
+        //act
+        $result = $this->get('/api/sale-total-amount' ,['Authorization' => $token_jwt]);
+
+        //assert
+        $result->assertResponseStatus(200);
+        $result->seeJsonStructure(
+            [
+                'total_amount'
+            ]
+        );
+    }
 }

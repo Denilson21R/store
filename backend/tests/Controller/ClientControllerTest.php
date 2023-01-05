@@ -126,4 +126,20 @@ class ClientControllerTest extends TestCase
         $result->assertResponseStatus(204);
         $this->notSeeInDatabase('client', $client->getAttributes());
     }
+
+    public function testCanGetClientQuantity(){
+        //prepare
+        $token_jwt = $this->authenticate();
+
+        //act
+        $result = $this->get('/api/client-qtdd' ,['Authorization' => $token_jwt]);
+
+        //assert
+        $result->assertResponseStatus(200);
+        $result->seeJsonStructure(
+            [
+                'quantity'
+            ]
+        );
+    }
 }

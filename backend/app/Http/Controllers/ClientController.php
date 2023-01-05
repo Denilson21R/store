@@ -90,4 +90,13 @@ class ClientController extends Controller
             return response()->json(['status' => 'fail'], 401);
         }
     }
+
+    public function getClientQty(Request $request){
+        if(Auth::check()) {
+            $qtdd = Client::all()->count();
+            return response()->json(['quantity' => $qtdd], 200);
+        }else{
+            return response()->json(['status' => 'fail'], 401);
+        }
+    }
 }

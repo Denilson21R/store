@@ -93,6 +93,15 @@ class ProductController extends Controller
             return response()->json(['status' => 'fail'], 401);
         }
     }
+
+    public function getProductQty(Request $request){
+        if(Auth::check()) {
+            $qtdd = Product::all()->count();
+            return response()->json(['quantity' => $qtdd], 200);
+        }else{
+            return response()->json(['status' => 'fail'], 401);
+        }
+    }
 }
 
 
