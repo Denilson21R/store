@@ -41,6 +41,7 @@ class SaleController extends Controller
     public function addSale(Request $request) : JsonResponse {
         $this->validate($request, [
             'id_client' => 'required',
+            'id_user' => 'required',
             'products' => 'required|array',
             'total_value' => 'required'
         ]);

@@ -17,9 +17,11 @@ return new class extends Migration
             $table->id();
             $table->float("total_value");
             $table->unsignedBigInteger("id_client");
+            $table->unsignedBigInteger("id_user");
             $table->timestamps();
 
             $table->foreign('id_client')->references('id')->on('client');
+            $table->foreign('id_user')->references('id')->on('user');
         });
     }
 

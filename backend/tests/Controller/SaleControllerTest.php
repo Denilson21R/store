@@ -4,6 +4,7 @@ namespace Tests\Controller;
 
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\User;
 use Illuminate\Support\Env;
 use Tests\TestCase;
 
@@ -73,9 +74,12 @@ class SaleControllerTest extends TestCase
 
         $products = Product::factory()->count(3)->create();
         $sale = Sale::factory()->make();
+        $user = User::factory()->create();
+
 
         $params_request_sale = [
             'id_client' => $sale->id_client,
+            'id_user' => $user->id,
             'total_value' => $sale->total_value,
             'products' => $products->toArray()
         ];
@@ -90,6 +94,7 @@ class SaleControllerTest extends TestCase
             [
                 "id",
                 "id_client",
+                "id_user",
                 "total_value",
                 "created_at",
                 "updated_at",

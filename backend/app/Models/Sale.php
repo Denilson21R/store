@@ -12,6 +12,7 @@ class Sale extends Model {
     protected $fillable = [
         'id',
         'id_client',
+        'id_user',
         'total_value',
         'created_at',
         'updated_at'
