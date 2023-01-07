@@ -76,6 +76,7 @@ function saveSession(response) {
   sessionStorage.setItem('token', response.data.api_key)
   sessionStorage.setItem('id', response.data.id)
   sessionStorage.setItem('login', this.login)
+  sessionStorage.setItem('name', response.data.name)
 }
 </script>
 
