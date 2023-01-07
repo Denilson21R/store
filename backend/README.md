@@ -39,7 +39,7 @@ A cada login, um novo token é gerado e deve ser usado até o próximo login do 
 |  login   |     sim     | string |
 
 - Retorno
-  - Se o login for realizado com sucesso, retornará status 200, o id do usuário e o token pra autenticação
+  - Se o login for realizado com sucesso, retornará status 200, o id, login e nome do usuário e o token pra autenticação
   - Na ausência de dados obrigatórios, retornará status 422 e os campos ausentes
   - Caso ocorra um erro enquanto o usuário é salvo, retornará status 500
   - Caso a senha estiver incorreta ou ocorrer um erro ao obter o usuário, retornará status 401
@@ -187,7 +187,14 @@ A cada login, um novo token é gerado e deve ser usado até o próximo login do 
   - Se a busca ocorrer corretamente, retornará status 200 e uma lista de objetos venda
   - Caso o token não for passado corretamente, retornará status 401
 
-#### 16. GET ``/api/sale/{id}``
+#### 16. GET ``/api/sale/user/{id}``
+- Necessário passar o bearer token via cabeçalho Authorization
+
+- Retorno
+    - Se a busca ocorrer corretamente, retornará status 200 e uma lista de objetos venda
+    - Caso o token não for passado corretamente, retornará status 401
+
+#### 17. GET ``/api/sale/{id}``
 - Necessário passar o bearer token via cabeçalho Authorization
 
 - Retorno
@@ -195,7 +202,7 @@ A cada login, um novo token é gerado e deve ser usado até o próximo login do 
   - Caso o venda não for encontrado pelo id passado na url, retornará status 404
   - Caso o token não for passado corretamente, retornará status 401
 
-#### 17. POST ``/api/sale/{id}``
+#### 18. POST ``/api/sale/{id}``
 - Necessário passar o bearer token via cabeçalho Authorization
 
 - Parâmetros
@@ -212,7 +219,7 @@ A cada login, um novo token é gerado e deve ser usado até o próximo login do 
     - Caso ocorra um erro enquanto a venda é salva, retornará status 500
     - Caso o token não for passado corretamente, retornará status 401
 
-#### 18. DELETE ``/api/sale/{id}``
+#### 19. DELETE ``/api/sale/{id}``
 - Necessário passar o bearer token via cabeçalho Authorization
 
 - Retorno

@@ -11,8 +11,9 @@ class ClientFactory extends Factory
     protected $model = Client::class;
     public function definition()
     {
+        $gender = $this->faker->randomElement(['male', 'female']);
         return [
-            'name' => $this->faker->name,
+            'name' => $this->faker->name($gender),
             'address' => $this->faker->address,
             'phone' => $this->faker->phoneNumber
         ];

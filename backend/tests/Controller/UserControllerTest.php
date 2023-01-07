@@ -60,7 +60,8 @@ class UserControllerTest extends TestCase
             [
                 'status',
                 'api_key',
-                'id'
+                'id',
+                'name'
             ]
         );
     }

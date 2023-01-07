@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Sale;
-use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +19,15 @@ class SaleController extends Controller
         if(Auth::check()){
             $sales = Sale::all();
             return response()->json(['status' => 'success', 'data' => $sales], 200);
+        }else{
+            return response()->json(['status' => 'fail'], 401);
+        }
+    }
+
+    public function getSalesByUser(Request $request, int $id): JsonResponse{
+        if(Auth::check()) {
+            $sales = Sale::where('id_user', $id)->get();
+            return response()->json($sales, 200);
         }else{
             return response()->json(['status' => 'fail'], 401);
         }
@@ -95,7 +103,7 @@ class SaleController extends Controller
             ->delete();
     }
 
-    public function getSaleQty(Request $request){
+    public function getSaleQty(Request $request): JsonResponse{
         if(Auth::check()) {
             $qtdd = Sale::all()->count();
             return response()->json(['quantity' => $qtdd], 200);
@@ -104,7 +112,7 @@ class SaleController extends Controller
         }
     }
 
-    public function getSaleTotalAmount(Request $request){
+    public function getSaleTotalAmount(Request $request): JsonResponse{
         if(Auth::check()) {
             $total_amount = $this->getTotalAmountOfSalesArray();
             return response()->json(['total_amount' => $total_amount], 200);

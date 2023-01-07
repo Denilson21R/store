@@ -40,6 +40,8 @@ $router->get('/api/product-qtdd', 'ProductController@getProductQty');
 
 $router->get('/api/sale', 'SaleController@getAllSales');
 
+$router->get('/api/sale/user/{id}', 'SaleController@getSalesByUser');
+
 $router->get('/api/sale/{id}', 'SaleController@getSaleById');
 
 $router->post('/api/sale', 'SaleController@addSale');
