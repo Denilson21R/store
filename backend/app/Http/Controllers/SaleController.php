@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Sale;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,7 @@ class SaleController extends Controller
     public function getAllSales(Request $request) : JsonResponse {
         if(Auth::check()){
             $sales = Sale::all();
+            $this->fillDataOfSales($sales);
             return response()->json(['status' => 'success', 'data' => $sales], 200);
         }else{
             return response()->json(['status' => 'fail'], 401);
@@ -27,6 +29,7 @@ class SaleController extends Controller
     public function getSalesByUser(Request $request, int $id): JsonResponse{
         if(Auth::check()) {
             $sales = Sale::where('id_user', $id)->get();
+            $this->fillDataOfSales($sales);
             return response()->json($sales, 200);
         }else{
             return response()->json(['status' => 'fail'], 401);
@@ -129,5 +132,16 @@ class SaleController extends Controller
             $total_amount += $sale->total_value;
         }
         return $total_amount;
+    }
+
+    public function fillDataOfSales($sales): void
+    {
+        foreach ($sales as $sale) {
+            $sale->products = $sale->products()->get();
+            $sale->client = Client::where('id', $sale->id_client)->get(["id", "name", "address", "phone"]);
+            $sale->user = User::where('id', $sale->id_user)->get(["id", "name"]);
+            unset($sale->id_client);
+            unset($sale->id_user);
+        }
     }
 }
