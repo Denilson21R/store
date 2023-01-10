@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs is-medium is-toggle is-centered m-5">
+  <div class="tabs is-medium is-toggle is-centered m-4">
     <ul>
       <li v-bind:class="{'is-active': tab === 'home'}"><RouterLink to="/home" >Início</RouterLink></li>
       <li v-bind:class="{'is-active': tab === 'clients'}"><RouterLink to="/clients">Clientes</RouterLink></li>

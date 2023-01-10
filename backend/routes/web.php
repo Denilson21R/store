@@ -24,7 +24,7 @@ $router->put('/api/client/{id}', 'ClientController@updateClient');
 
 $router->delete('/api/client/{id}', 'ClientController@deleteClient');
 
-$router->get('/api/client-qtdd', 'ClientController@getClientQty');
+$router->get('/api/client-qty', 'ClientController@getClientQty');
 
 $router->get('/api/product', 'ProductController@getAllProducts');
 
@@ -36,7 +36,7 @@ $router->put('/api/product/{id}', 'ProductController@updateProduct');
 
 $router->delete('/api/product/{id}', 'ProductController@deleteProduct');
 
-$router->get('/api/product-qtdd', 'ProductController@getProductQty');
+$router->get('/api/product-qty', 'ProductController@getProductQty');
 
 $router->get('/api/sale', 'SaleController@getAllSales');
 
@@ -48,6 +48,4 @@ $router->post('/api/sale', 'SaleController@addSale');
 
 $router->delete('/api/sale/{id}', 'SaleController@deleteSale');
 
-$router->get('/api/sale-qtdd', 'SaleController@getSaleQty');
-
-$router->get('/api/sale-total-amount', 'SaleController@getSaleTotalAmount');
+$router->get('/api/sale-stats', 'SaleController@getSaleStats');

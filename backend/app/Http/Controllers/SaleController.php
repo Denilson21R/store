@@ -106,19 +106,14 @@ class SaleController extends Controller
             ->delete();
     }
 
-    public function getSaleQty(Request $request): JsonResponse{
-        if(Auth::check()) {
-            $qtdd = Sale::all()->count();
-            return response()->json(['quantity' => $qtdd], 200);
-        }else{
-            return response()->json(['status' => 'fail'], 401);
-        }
-    }
-
-    public function getSaleTotalAmount(Request $request): JsonResponse{
+    public function getSaleStats(Request $request): JsonResponse{
         if(Auth::check()) {
             $total_amount = $this->getTotalAmountOfSalesArray();
-            return response()->json(['total_amount' => $total_amount], 200);
+            $qtdd = Sale::all()->count();
+            return response()->json([
+                'total_amount' => $total_amount,
+                'quantity' => $qtdd
+            ], 200);
         }else{
             return response()->json(['status' => 'fail'], 401);
         }
