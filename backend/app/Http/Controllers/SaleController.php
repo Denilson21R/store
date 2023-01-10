@@ -30,7 +30,7 @@ class SaleController extends Controller
         if(Auth::check()) {
             $sales = Sale::where('id_user', $id)->get();
             $this->fillDataOfSales($sales);
-            return response()->json($sales, 200);
+            return response()->json(['status' => 'success', 'data' => $sales], 200);
         }else{
             return response()->json(['status' => 'fail'], 401);
         }

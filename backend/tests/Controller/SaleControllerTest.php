@@ -58,6 +58,12 @@ class SaleControllerTest extends TestCase
 
         //assert
         $sale->assertResponseStatus(200);
+        $sales->seeJsonStructure(
+            [
+                'status',
+                'data'
+            ]
+        );
     }
 
     public function testCanGetSaleById()
