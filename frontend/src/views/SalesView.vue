@@ -1,9 +1,17 @@
 <template>
   <MenuHome tab="sales"/>
-  <div class="ml-5 container is-narrow">
+  <div class="ml-5 m-6 container is-narrow">
+    <button class="is-pulled-right button is-info mr-6">Nova Venda</button>
     <div class="columns is-multiline">
-      <template v-for="sale in sales" v-bind:key="sale.id">
-        <sale-card :sale="sale" />
+      <template v-if="sales.length > 0">
+        <template v-for="sale in sales" v-bind:key="sale.id">
+          <sale-card :sale="sale" @deleteCard="deleteCardInList"/>
+        </template>
+      </template>
+      <template v-else>
+        <div class="notification is-danger m-6">
+          Nenhuma venda foi encontrada
+        </div>
       </template>
     </div>
   </div>
@@ -24,6 +32,21 @@ export default {
     }
   },
   name: "SalesView",
+  methods:{
+    deleteCardInList(id){
+      this.sales.forEach((sale)=>{
+        if(sale.id === id){
+          this.deleteSaleInArrayByIndex(sale)
+        }
+      })
+    },
+    deleteSaleInArrayByIndex(sale){
+      let index = this.sales.indexOf(sale)
+      if (index > -1) {
+        this.sales.splice(index, 1);
+      }
+    }
+  },
   mounted() {
     axios.get('http://localhost:8000/api/sale/user/' + sessionStorage.getItem('id'), {
       headers: {
@@ -45,8 +68,5 @@ export default {
 </script>
 
 <style scoped>
-div{
-  /*overflow-y: auto;
-  height: 100%;*/
-}
+
 </style>

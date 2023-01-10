@@ -132,7 +132,7 @@ class ProductControllerTest extends TestCase
         $token_jwt = $this->authenticate();
 
         //act
-        $result = $this->get('/api/product-qtdd' ,['Authorization' => $token_jwt]);
+        $result = $this->get('/api/product-qty' ,['Authorization' => $token_jwt]);
 
         //assert
         $result->assertResponseStatus(200);

@@ -132,7 +132,7 @@ class ClientControllerTest extends TestCase
         $token_jwt = $this->authenticate();
 
         //act
-        $result = $this->get('/api/client-qtdd' ,['Authorization' => $token_jwt]);
+        $result = $this->get('/api/client-qty' ,['Authorization' => $token_jwt]);
 
         //assert
         $result->assertResponseStatus(200);

@@ -1,7 +1,7 @@
 <template>
   <div v-bind:class="['column', 'is-half', 'mt-4']">
     <div v-bind:class="['notification', tag, 'has-text-centered']">
-      <p><span>{{this.stat}}: <span class="tag is-medium">{{this.statValue}}</span></span></p>
+      <p><span v-bind:class="[textColor]">{{this.stat}}: {{this.statValue}}</span></p>
     </div>
   </div>
 </template>
@@ -12,7 +12,8 @@ export default {
   props: {
     stat: String,
     statValue: String,
-    tag: String
+    tag: String,
+    textColor: String,
   }
 }
 </script>

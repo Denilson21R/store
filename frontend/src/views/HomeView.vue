@@ -1,10 +1,10 @@
 <template>
   <MenuHome tab="home"/>
   <div class="main m-6">
-    <div class="columns is-multiline">
+    <div class="columns is-multiline m-6">
       <HomeStatsCard stat="Soma total de valor das vendas" :stat-value="this.totalValueSales" tag="is-danger"/>
-      <HomeStatsCard stat="Quantidade total de vendas" :stat-value="qtySales" tag="is-success"/>
-      <HomeStatsCard stat="Quantidade total de produtos" :stat-value="qtyProducts" tag="is-primary"/>
+      <HomeStatsCard stat="Quantidade total de vendas" :stat-value="qtySales" tag="is-success" text-color="has-text-black"/>
+      <HomeStatsCard stat="Quantidade total de produtos" :stat-value="qtyProducts" tag="is-info"/>
       <HomeStatsCard stat="Quantidade total de clientes" :stat-value="qtyClients" tag="is-warning"/>
     </div>
   </div>
