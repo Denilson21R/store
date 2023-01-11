@@ -1,7 +1,7 @@
 <template>
   <MenuHome tab="sales"/>
   <div class="ml-5 m-6 container is-narrow">
-    <button class="is-pulled-right button is-info mr-6">Nova Venda</button>
+    <button class="is-pulled-right button is-info mr-6" @click="openFormNewSale">Nova Venda</button>
     <div class="columns is-multiline">
       <template v-if="sales.length > 0">
         <template v-for="sale in sales" v-bind:key="sale.id">
@@ -22,6 +22,7 @@ import MenuHome from "@/components/MenuHome.vue";
 import SaleCard from "@/components/SaleCard.vue";
 import axios from "axios";
 import * as bulmaToast from "bulma-toast";
+import router from "@/router";
 
 export default {
   components: {MenuHome, SaleCard},
@@ -45,6 +46,9 @@ export default {
       if (index > -1) {
         this.sales.splice(index, 1);
       }
+    },
+    openFormNewSale(){
+      router.push({ path: '/sales/new' })
     }
   },
   mounted() {
