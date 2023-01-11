@@ -25,7 +25,7 @@
         <div class="column is-half">
           <div class="field is-half">
             <label class="label">Valor</label>
-            <input type="number" v-bind:class="{'input': true, 'is-success':valueValid, 'is-danger':!valueValid}" v-model="totalValue">
+            <input type="number" min="0.1" step="any" v-bind:class="{'input': true, 'is-success':valueValid, 'is-danger':!valueValid}" v-model="totalValue">
           </div>
         </div>
         <div class="column is-half" v-if="suggestedValue">
@@ -49,6 +49,7 @@
 <script>
 import axios from "axios";
 import * as bulmaToast from "bulma-toast";
+import router from "@/router";
 
 export default {
   name: "NewSaleForm",
@@ -89,9 +90,31 @@ export default {
         }
       })
     },
+    requestSaveNewSale(){
+      axios.post("http://localhost:8000/api/sale", {
+        id_client: this.clientId,
+        id_user: sessionStorage.getItem("id"),
+        products: this.selectedProducts,
+        total_value: this.totalValue
+      },{
+        headers: {
+          Authorization: 'Bearer ' + sessionStorage.getItem("token")
+        }
+      }).then((response)=>{
+        if(response.status === 201){
+          router.push({ path: '/sales' })
+          this.toast("Venda salva com sucesso!", "is-success")
+        }else{
+          this.toast("Ocorreu um erro ao salvar a venda!", "is-danger")
+        }
+      })
+    },
     submitNewSale(){
-      //TODO: not null client, positive and not null value, products array length > 0
-      alert("new sale!")
+      if(this.clientValid && this.valueValid && this.selectedProducts.length > 0){
+        this.requestSaveNewSale()
+      }else{
+        this.toast("Campos obrigatórios não foram preenchidos", "is-danger")
+      }
     },
     toast(message, type){
       bulmaToast.toast({
@@ -112,7 +135,7 @@ export default {
   },
   computed: {
     valueValid(){
-      return !!(this.totalValue && this.totalValue >= 0)
+      return !!(this.totalValue && this.totalValue > 0)
     },
     clientValid(){
       return !!(this.clientId)

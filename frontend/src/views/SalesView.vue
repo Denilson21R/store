@@ -1,7 +1,7 @@
 <template>
   <MenuHome tab="sales"/>
-  <div class="ml-5 m-6 container is-narrow">
-    <button class="is-pulled-right button is-info mr-6" @click="openFormNewSale">Nova Venda</button>
+  <button class="button is-info ml-6" @click="openFormNewSale">Nova Venda</button>
+  <div class="ml-5 mx-6 container is-narrow">
     <div class="columns is-multiline">
       <template v-if="sales.length > 0">
         <template v-for="sale in sales" v-bind:key="sale.id">
