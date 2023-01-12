@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="card-footer">
-          <button class="button is-link m-2">Detalhar</button>
+          <button class="button is-link m-2" @click="detailSale(this.sale)">Detalhar</button>
           <button class="button is-danger m-2" @click="requestDeleteSale(this.sale.id)">Deletar</button>
       </div>
     </div>
@@ -20,6 +20,7 @@
 import moment from 'moment';
 import axios from "axios";
 import * as bulmaToast from "bulma-toast";
+import router from "@/router";
 export default {
   name: "SaleCard",
   props: {
@@ -38,6 +39,9 @@ export default {
     }
   },
   methods: {
+    detailSale(sale){
+      router.push({ path: '/sale/' + sale.id })
+    },
     requestDeleteSale(id){
       axios.delete('http://localhost:8000/api/sale/' + id, {
         headers: {
