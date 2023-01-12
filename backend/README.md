@@ -122,14 +122,21 @@ A cada login, um novo token é gerado e deve ser usado até o próximo login do 
   - Caso o cliente não for encontrado pelo id passado na url, retornará status 404
   - Caso o token não for passado corretamente, retornará status 401
 
-#### 10. GET ``/api/product``
+#### 10. GET ``/api/client-qty``
+- Necessário passar o bearer token via cabeçalho Authorization
+
+- Retorno
+    - Se a busca ocorrer corretamente, retornará status 200 e a quantidade de clientes cadastrados
+    - Caso o token não for passado corretamente, retornará status 401
+
+#### 11. GET ``/api/product``
 - Necessário passar o bearer token via cabeçalho Authorization
 
 - Retorno
   - Se a busca ocorrer corretamente, retornará status 200 e uma lista de objetos produto
   - Caso o token não for passado corretamente, retornará status 401
 
-#### 11. GET ``/api/product/{id}``
+#### 12. GET ``/api/product/{id}``
 - Necessário passar o bearer token via cabeçalho Authorization
 
 - Retorno
@@ -137,7 +144,7 @@ A cada login, um novo token é gerado e deve ser usado até o próximo login do 
   - Caso o produto não for encontrado pelo id passado na url, retornará status 404
   - Caso o token não for passado corretamente, retornará status 401
 
-#### 12. POST ``/api/product``
+#### 13. POST ``/api/product``
 - Necessário passar o bearer token via cabeçalho Authorization
 
 - Parâmetros
@@ -154,7 +161,7 @@ A cada login, um novo token é gerado e deve ser usado até o próximo login do 
   - Caso ocorra um erro enquanto o produto é salvo, retornará status 500
   - Caso o token não for passado corretamente, retornará status 401
 
-#### 13. PUT ``/api/product/{id}``
+#### 14. PUT ``/api/product/{id}``
 - Necessário passar o bearer token via cabeçalho Authorization
 
 - Parâmetros
@@ -172,7 +179,7 @@ A cada login, um novo token é gerado e deve ser usado até o próximo login do 
   - Caso o produto não for encontrado pelo id passado na url, retornará status 404
   - Caso o token não for passado corretamente, retornará status 401
 
-#### 14. DELETE ``/api/product/{id}``
+#### 15. DELETE ``/api/product/{id}``
 - Necessário passar o bearer token via cabeçalho Authorization
 
 - Retorno
@@ -180,21 +187,28 @@ A cada login, um novo token é gerado e deve ser usado até o próximo login do 
   - Caso o produto não for encontrado pelo id passado na url, retornará status 404
   - Caso o token não for passado corretamente, retornará status 401
 
-#### 15. GET ``/api/sale``
+#### 16. GET ``/api/product-qty``
+- Necessário passar o bearer token via cabeçalho Authorization
+
+- Retorno
+    - Se a busca ocorrer corretamente, retornará status 200 e a quantidade de produtos cadastrados
+    - Caso o token não for passado corretamente, retornará status 401
+
+#### 17. GET ``/api/sale``
 - Necessário passar o bearer token via cabeçalho Authorization
 
 - Retorno
   - Se a busca ocorrer corretamente, retornará status 200 e uma lista de objetos venda
   - Caso o token não for passado corretamente, retornará status 401
 
-#### 16. GET ``/api/sale/user/{id}``
+#### 18. GET ``/api/sale/user/{id}``
 - Necessário passar o bearer token via cabeçalho Authorization
 
 - Retorno
     - Se a busca ocorrer corretamente, retornará status 200 e uma lista de objetos venda
     - Caso o token não for passado corretamente, retornará status 401
 
-#### 17. GET ``/api/sale/{id}``
+#### 19. GET ``/api/sale/{id}``
 - Necessário passar o bearer token via cabeçalho Authorization
 
 - Retorno
@@ -202,7 +216,7 @@ A cada login, um novo token é gerado e deve ser usado até o próximo login do 
   - Caso o venda não for encontrado pelo id passado na url, retornará status 404
   - Caso o token não for passado corretamente, retornará status 401
 
-#### 18. POST ``/api/sale/{id}``
+#### 20. POST ``/api/sale``
 - Necessário passar o bearer token via cabeçalho Authorization
 
 - Parâmetros
@@ -210,6 +224,7 @@ A cada login, um novo token é gerado e deve ser usado até o próximo login do 
 |    Nome     | Obrigatório |       Tipo       |
 |:-----------:|:-----------:|:----------------:|
 |  id_client  |     sim     |       int        |
+|   id_user   |     sim     |       int        |
 |  products   |     sim     | array de objetos |
 | total_value |     sim     |      float       |
 
@@ -219,13 +234,21 @@ A cada login, um novo token é gerado e deve ser usado até o próximo login do 
     - Caso ocorra um erro enquanto a venda é salva, retornará status 500
     - Caso o token não for passado corretamente, retornará status 401
 
-#### 19. DELETE ``/api/sale/{id}``
+#### 21. DELETE ``/api/sale/{id}``
 - Necessário passar o bearer token via cabeçalho Authorization
 
 - Retorno
   - Se a venda for deletado com sucesso, retornará status 204
   - Caso a venda não for encontrado pelo id passado na url, retornará status 404
   - Caso o token não for passado corretamente, retornará status 401
+
+#### 22. GET ``/api/sale-stats``
+- Necessário passar o bearer token via cabeçalho Authorization
+
+- Retorno
+    - Se a busca ocorrer corretamente, retornará status 200 e a quantidade de vendas cadastradas de todos os usuários e a soma de seus valores
+    - Caso o token não for passado corretamente, retornará status 401
+
 
 ## Configuração de Testes
 
