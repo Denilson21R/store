@@ -39,6 +39,7 @@ class SaleController extends Controller
     public function getSaleById(Request $request, int $id) : JsonResponse {
         if(Auth::check()){
             $sale = Sale::where('id', $id)->first();
+            $this->getClientAndPhoneDataOfSale($sale);
             if(!empty($sale)){
                 return response()->json(['status' => 'success', 'data' => $sale->getAttributes()], 200);
             }else{
@@ -132,11 +133,16 @@ class SaleController extends Controller
     public function fillDataOfSales($sales): void
     {
         foreach ($sales as $sale) {
-            $sale->products = $sale->products()->get();
-            $sale->client = Client::where('id', $sale->id_client)->get(["id", "name", "address", "phone"]);
+            $this->getClientAndPhoneDataOfSale($sale);
             $sale->user = User::where('id', $sale->id_user)->get(["id", "name"]);
             unset($sale->id_client);
             unset($sale->id_user);
         }
+    }
+
+    public function getClientAndPhoneDataOfSale($sale): void
+    {
+        $sale->products = $sale->products()->get();
+        $sale->client = Client::where('id', $sale->id_client)->get(["id", "name", "address", "phone"]);
     }
 }
