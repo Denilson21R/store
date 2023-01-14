@@ -3,9 +3,9 @@
     <div class="card">
       <div class="card-content">
         <div class="content">
-          <p><span>Cliente: <span class="tag">{{this.sale.client[0].name}}</span></span></p>
-          <p><span>Data: <span class="tag">{{ formatDate(this.sale.created_at) }}</span></span></p>
-          <p><span>Valor: <span class="tag">R$ {{this.sale.total_value.toFixed(2)}}</span></span></p>
+          <p><span>Cliente: <span class="tag">{{sale.client[0].name}}</span></span></p>
+          <p><span>Data: <span class="tag">{{ formatDate(sale.created_at) }}</span></span></p>
+          <p><span>Valor: <span class="tag">R$ {{sale.total_value.toFixed(2)}}</span></span></p>
         </div>
       </div>
       <div class="card-footer">
