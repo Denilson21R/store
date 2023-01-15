@@ -1,24 +1,27 @@
 <template>
-  <table class="table is-bordered is-hoverable" v-if="products && products.length > 0"> <!--TODO: melhorar estilo da tabela-->
-    <thead>
-    <th class="has-text-centered">Nome</th>
-    <th class="has-text-centered">Valor (R$)</th>
-    <th class="has-text-centered">Descrição</th> <!--TODO: maximo 100 caracteres, substituir excesso por '...'-->
-    <th class="has-text-centered">Ações</th> <!--TODO: implementar acoes-->
-    </thead>
-    <tbody>
-      <productDetailedCell v-for="product in products" v-bind:key="product.id" :product="product"/>
-    </tbody>
-  </table>
+  <div v-if="products && products.length > 0">
+    <table class="table is-bordered">
+      <thead class="has-background-link-light">
+      <th class="has-text-centered">Nome</th>
+      <th class="has-text-centered">Valor (R$)</th>
+      <th class="has-text-centered">Descrição</th>
+      <th class="has-text-centered">Ações</th>
+      </thead>
+      <tbody>
+        <productDetailedCell v-for="product in products" v-bind:key="product.id" :product="product"/>
+      </tbody>
+    </table>
+  </div>
+
   <template v-else>
-    <div class="ml-5 mx-6 container is-narrow">
-      <div class="columns is-multiline">
-        <div class="notification is-danger">
-          Nenhum produto foi encontrado
+      <div class="ml-5 mx-6 container is-narrow">
+        <div class="columns is-multiline">
+          <div class="notification is-danger">
+            Nenhum produto foi encontrado
+          </div>
         </div>
       </div>
-    </div>
-  </template>
+    </template>
 </template>
 
 <script>
@@ -61,5 +64,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

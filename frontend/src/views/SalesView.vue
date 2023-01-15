@@ -52,7 +52,7 @@ export default {
     }
   },
   mounted() {
-    axios.get('http://localhost:8000/api/sale/user/' + sessionStorage.getItem('id'), {
+    axios.get('http://localhost:8000/api/sale', {
       headers: {
         Authorization: 'Bearer ' + this.token
       }

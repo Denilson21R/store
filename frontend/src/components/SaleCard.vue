@@ -8,9 +8,9 @@
           <p><span>Valor: <span class="tag">R$ {{sale.total_value.toFixed(2)}}</span></span></p>
         </div>
       </div>
-      <div class="card-footer">
-          <button class="button is-link m-2" @click="detailSale(this.sale)">Detalhar</button>
-          <button class="button is-danger m-2" @click="requestDeleteSale(this.sale.id)">Deletar</button>
+      <div class="card-footer ">
+          <button class="button is-link my-2 ml-6" @click="detailSale(this.sale)">Detalhar</button>
+          <button class="button is-danger my-2 ml-2 mr-6" @click="requestDeleteSale(this.sale.id)">Deletar</button>
       </div>
     </div>
   </div>
