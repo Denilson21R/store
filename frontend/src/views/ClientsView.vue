@@ -1,5 +1,6 @@
 <template>
   <MenuHome tab="clients"/>
+  <button class="button is-info ml-6">Novo cliente</button>
   <div class="m-6">
     clients
   </div>
