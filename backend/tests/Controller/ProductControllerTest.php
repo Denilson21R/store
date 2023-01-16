@@ -142,4 +142,6 @@ class ProductControllerTest extends TestCase
             ]
         );
     }
+
+    //TODO: test can delete a product existent in a sale
 }

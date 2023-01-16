@@ -5,6 +5,7 @@ use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -82,7 +83,7 @@ class ProductController extends Controller
     public function deleteProduct(Request $request, int $id) : JsonResponse {
         if(Auth::check()) {
             $product = Product::where('id', $id)->first();
-
+            $this->deleteProductsOfSaleByProductId($id);
             if (!empty($product)) {
                 $product->delete();
                 return response()->json([], 204);
@@ -101,6 +102,13 @@ class ProductController extends Controller
         }else{
             return response()->json(['status' => 'fail'], 401);
         }
+    }
+
+    public function deleteProductsOfSaleByProductId(int $id): void
+    {
+        DB::table("sale_product")
+            ->where('id_product', $id)
+            ->delete();
     }
 }
 
