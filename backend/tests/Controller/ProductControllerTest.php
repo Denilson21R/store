@@ -3,6 +3,8 @@
 namespace Tests\Controller;
 
 use App\Models\Product;
+use App\Models\Sale;
+use App\Models\User;
 use Illuminate\Support\Env;
 use Tests\TestCase;
 
@@ -143,5 +145,30 @@ class ProductControllerTest extends TestCase
         );
     }
 
-    //TODO: test can delete a product existent in a sale
+    public function testCanDeleteProductUsedsInSale(){
+        //prepare
+        $token_jwt = $this->authenticate();
+
+        /* create sale data */
+        $products = Product::factory()->count(1)->create();
+        $sale = Sale::factory()->make();
+        $user = User::factory()->create();
+
+        $params_request_sale = [
+            'id_client' => $sale->id_client,
+            'id_user' => $user->id,
+            'total_value' => $sale->total_value,
+            'products' => $products->toArray()
+        ];
+
+        /* request to save sale */
+        $this->post('/api/sale', $params_request_sale, ['Authorization' => $token_jwt]);
+
+        //act
+        $result = $this->delete('/api/product/'.$products[0]->id, [] ,['Authorization' => $token_jwt]);
+
+        //assert
+        $result->assertResponseStatus(204);
+        $this->notSeeInDatabase('product', $products[0]->getAttributes());
+    }
 }
