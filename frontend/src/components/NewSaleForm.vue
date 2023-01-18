@@ -25,7 +25,7 @@
         <div class="column is-half">
           <div class="field is-half">
             <label class="label">Valor</label>
-            <input type="number" min="0.1" step="any" v-bind:class="{'input': true, 'is-success':valueValid, 'is-danger':!valueValid}" v-model="totalValue">
+            <input type="number" min="0.1" step="any" v-bind:class="{'input': true, 'is-success':valueValid, 'is-danger':!valueValid && totalValue != null}" v-model="totalValue">
           </div>
         </div>
         <div class="column is-half" v-if="suggestedValue">

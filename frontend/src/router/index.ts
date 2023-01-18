@@ -8,6 +8,7 @@ import ProductsView from '../views/ProductsView.vue'
 import SalesView from '../views/SalesView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import NewSaleView from '../views/NewSaleView.vue'
+import NewProductView from '../views/NewProductView.vue'
 import DetailSaleView from '../views/DetailSaleView.vue'
 
 const router = createRouter({
@@ -21,6 +22,7 @@ const router = createRouter({
     {path: '/products', name: 'products', component: ProductsView},
     {path: '/sales', name: 'sales', component: SalesView},
     {path: '/sales/new', name: 'newSale', component: NewSaleView},
+    {path: '/products/new', name: 'newProduct', component: NewProductView},
     {path: '/sale/:id', name: 'detailSale', component: DetailSaleView},
     {path: '/profile', name: 'profile', component: ProfileView}
   ]
