@@ -4,7 +4,7 @@
     <td>{{product.value}}</td>
     <td class="description">{{ product.description }}</td>
     <td class="is-vcentered has-text-centered">
-      <button class="button is-link">Atualizar</button>
+      <button class="button is-link" @click="updateProduct">Atualizar</button>
       <button class="button is-danger mx-2" @click="deleteProduct">Deletar</button>
     </td>
   </tr>
@@ -13,6 +13,7 @@
 <script>
 import axios from "axios";
 import * as bulmaToast from "bulma-toast";
+import router from "@/router";
 
 export default {
   name: "ProductDetailedCell",
@@ -27,6 +28,9 @@ export default {
   methods: {
     deleteProduct(){
       this.requestDeleteProduct()
+    },
+    updateProduct(){
+      router.push({ path: '/product/' + this.product.id })
     },
     requestDeleteProduct(){
       axios.delete('http://localhost:8000/api/product/' + this.product.id, {

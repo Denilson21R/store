@@ -42,7 +42,7 @@ export default {
       if(this.valueValid && this.nameValid && this.descriptionValid){
         this.requestSaveNewProduct()
       }else{
-        this.toast("Campos obrigatórios não foram preenchidos", "is-danger")
+        this.toast("Campos obrigatórios não foram preenchidos corretamente", "is-danger")
       }
     },
     requestSaveNewProduct(){
