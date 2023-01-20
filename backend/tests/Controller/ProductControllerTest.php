@@ -145,7 +145,7 @@ class ProductControllerTest extends TestCase
         );
     }
 
-    public function testCanDeleteProductUsedsInSale(){
+    public function testCantDeleteProductUsedInSale(){
         //prepare
         $token_jwt = $this->authenticate();
 
@@ -168,7 +168,7 @@ class ProductControllerTest extends TestCase
         $result = $this->delete('/api/product/'.$products[0]->id, [] ,['Authorization' => $token_jwt]);
 
         //assert
-        $result->assertResponseStatus(204);
-        $this->notSeeInDatabase('product', $products[0]->getAttributes());
+        $result->assertResponseStatus(200);
+        $this->seeInDatabase('product', $products[0]->getAttributes());
     }
 }

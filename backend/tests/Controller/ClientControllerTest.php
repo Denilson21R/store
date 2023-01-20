@@ -3,6 +3,7 @@
 namespace Tests\Controller;
 
 use App\Models\Client;
+use App\Models\Sale;
 use Illuminate\Support\Env;
 use Tests\TestCase;
 
@@ -139,6 +140,24 @@ class ClientControllerTest extends TestCase
         $result->seeJsonStructure(
             [
                 'quantity'
+            ]
+        );
+    }
+
+    public function testCantDeleteClientUsedInSale(){
+        //prepare
+        $token_jwt = $this->authenticate();
+
+        $sale = Sale::factory()->create();
+
+        //act
+        $result = $this->delete('/api/client/'.$sale->id_client, [] ,['Authorization' => $token_jwt]);
+
+        //assert
+        $result->assertResponseStatus(200);
+        $result->seeJsonStructure(
+            [
+                'error'
             ]
         );
     }

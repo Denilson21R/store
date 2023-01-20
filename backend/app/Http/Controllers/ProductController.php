@@ -83,10 +83,14 @@ class ProductController extends Controller
     public function deleteProduct(Request $request, int $id) : JsonResponse {
         if(Auth::check()) {
             $product = Product::where('id', $id)->first();
-            $this->deleteProductsOfSaleByProductId($id);
+
             if (!empty($product)) {
-                $product->delete();
-                return response()->json([], 204);
+                if($this->productUsedInSales($id)){
+                    return response()->json(['error' => 'product cant be deleted'], 200);
+                }else{
+                    $product->delete();
+                    return response()->json([], 204);
+                }
             } else {
                 return response()->json(['error' => 'product not found'], 404);
             }
@@ -104,11 +108,17 @@ class ProductController extends Controller
         }
     }
 
-    public function deleteProductsOfSaleByProductId(int $id): void
+    public function productUsedInSales(int $id)
     {
-        DB::table("sale_product")
+        $products = DB::table("sale_product")
             ->where('id_product', $id)
-            ->delete();
+            ->get();
+
+        if($products->count() > 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 

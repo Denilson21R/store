@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Sale;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -81,8 +83,12 @@ class ClientController extends Controller
             $client = Client::where('id', $id)->first();
 
             if (!empty($client)) {
-                $client->delete();
-                return response()->json([], 204);
+                if($this->clientUsedInSales($id)){
+                    return response()->json(['error' => 'product cant be deleted'], 200);
+                }else{
+                    $client->delete();
+                    return response()->json([], 204);
+                }
             } else {
                 return response()->json(['error' => 'client not found'], 404);
             }
@@ -97,6 +103,17 @@ class ClientController extends Controller
             return response()->json(['quantity' => $qtdd], 200);
         }else{
             return response()->json(['status' => 'fail'], 401);
+        }
+    }
+
+    public function clientUsedInSales(int $id)
+    {
+        $sales = Sale::where('id_client', $id)->get();
+
+        if($sales->count() > 0){
+            return true;
+        }else{
+            return false;
         }
     }
 }
