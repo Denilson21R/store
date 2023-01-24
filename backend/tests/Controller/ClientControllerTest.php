@@ -13,6 +13,7 @@ class ClientControllerTest extends TestCase
      * Perform login with the user and return the token in a prepared string to authenticate.
      * Login and password of users can be changed in env file.
      */
+
     protected function authenticate(): string
     {
         $email = Env::get('TESTS_LOGIN');

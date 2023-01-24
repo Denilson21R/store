@@ -1,8 +1,8 @@
 <template>
   <tr v-if="client" v-show="!deleted">
-    <td>{{client.name}}</td>
-    <td class="address">{{client.address}}</td>
-    <td>{{ client.phone }}</td>
+    <td class="is-vcentered">{{client.name}}</td>
+    <td class="address is-vcentered">{{client.address}}</td>
+    <td class="is-vcentered">{{ client.phone }}</td>
     <td class="is-vcentered has-text-centered">
       <button class="button is-link" @click="updateClient">Atualizar</button>
       <button class="button is-danger mx-2" @click="deleteClient">Deletar</button>
@@ -30,8 +30,7 @@ export default {
       this.requestDeleteClient()
     },
     updateClient(){
-      //TODO: open update client view
-      //router.push({ path: '/client/' + this.product.id })
+      router.push({ path: '/client/' + this.client.id })
     },
     requestDeleteClient(){
       axios.delete('http://localhost:8000/api/client/' + this.client.id, {

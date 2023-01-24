@@ -64,12 +64,7 @@ class SaleController extends Controller
                 $sale = Sale::create($request->all());
 
                 foreach ($request->products as $product){
-                    DB::table('sale_product')->insert([
-                        [
-                            'id_product' => $product["id"],
-                            'id_sale' => $sale->id
-                        ]
-                    ]);
+                    $this->insertProductSalesTable($product["id"], $sale);
                 }
 
                 if($sale->save()){
@@ -144,5 +139,15 @@ class SaleController extends Controller
     {
         $sale->products = $sale->products()->get();
         $sale->client = Client::where('id', $sale->id_client)->get(["id", "name", "address", "phone"]);
+    }
+
+    public function insertProductSalesTable($id, $sale): void
+    {
+        DB::table('sale_product')->insert([
+            [
+                'id_product' => $id,
+                'id_sale' => $sale->id
+            ]
+        ]);
     }
 }

@@ -41,8 +41,10 @@ export default {
         if (response.status === 204){
           this.toast("Produto deletado com sucesso", "is-success")
           this.deleted = true
+        }else if(response.status === 200){
+          this.toast("Produto não pode ser deletado, pois está ligado à uma venda", "is-danger")
         }else{
-          this.toast("Ocorreu um erro ao obter os clientes", "is-danger")
+          this.toast("Ocorreu um erro ao deletar o produto", "is-danger")
         }
       })
     },

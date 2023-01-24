@@ -62,9 +62,7 @@ class ClientController extends Controller
         if(Auth::check()){
             $client = Client::where('id', $id)->first();
             if(!empty($client)){
-                $client->name = $request->name;
-                $client->address = $request->address;
-                $client->phone = $request->phone;
+                $this->bindClientDataByRequestData($request, $client);
                 if($client->save()){
                     return response()->json(['status' => 'success', 'data' => $client->getAttributes()], 200);
                 }else{
@@ -115,5 +113,12 @@ class ClientController extends Controller
         }else{
             return false;
         }
+    }
+
+    public function bindClientDataByRequestData(Request $request, $client): void
+    {
+        $client->name = $request->name;
+        $client->address = $request->address;
+        $client->phone = $request->phone;
     }
 }

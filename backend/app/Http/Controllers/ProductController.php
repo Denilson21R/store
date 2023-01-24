@@ -64,9 +64,7 @@ class ProductController extends Controller
         if(Auth::check()){
             $product = Product::where('id', $id)->first();
             if(!empty($product)){
-                $product->name = $request->name;
-                $product->description = $request->description;
-                $product->value = $request->value;
+                $this->bindProductDataByRequestData($request, $product);
                 if($product->save()){
                     return response()->json(['status' => 'success', 'data' => $product->getAttributes()], 200);
                 }else{
@@ -85,7 +83,7 @@ class ProductController extends Controller
             $product = Product::where('id', $id)->first();
 
             if (!empty($product)) {
-                if($this->productUsedInSales($id)){
+                if($this->isProductUserInSalesById($id)){
                     return response()->json(['error' => 'product cant be deleted'], 200);
                 }else{
                     $product->delete();
@@ -108,7 +106,7 @@ class ProductController extends Controller
         }
     }
 
-    public function productUsedInSales(int $id)
+    public function isProductUserInSalesById(int $id)
     {
         $products = DB::table("sale_product")
             ->where('id_product', $id)
@@ -119,6 +117,13 @@ class ProductController extends Controller
         }else{
             return false;
         }
+    }
+
+    public function bindProductDataByRequestData(Request $request, $product): void
+    {
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->value = $request->value;
     }
 }
 

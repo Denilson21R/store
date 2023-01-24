@@ -11,6 +11,8 @@ import NewSaleView from '../views/NewSaleView.vue'
 import NewProductView from '../views/NewProductView.vue'
 import DetailSaleView from '../views/DetailSaleView.vue'
 import UpdateProductView from '../views/UpdateProductView.vue'
+import NewClientView from '../views/NewClientView.vue'
+import UpdateClientView from '../views/UpdateClientView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,8 +26,10 @@ const router = createRouter({
     {path: '/sales', name: 'sales', component: SalesView},
     {path: '/sales/new', name: 'newSale', component: NewSaleView},
     {path: '/products/new', name: 'newProduct', component: NewProductView},
+    {path: '/clients/new', name: 'newClient', component: NewClientView},
     {path: '/sale/:id', name: 'detailSale', component: DetailSaleView},
     {path: '/product/:id', name: 'updateProduct', component: UpdateProductView},
+    {path: '/client/:id', name: 'updateClient', component: UpdateClientView},
     {path: '/profile', name: 'profile', component: ProfileView}
   ]
 })

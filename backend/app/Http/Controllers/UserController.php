@@ -19,16 +19,12 @@ class UserController extends Controller
 
         $credentials = $request->only('login', 'password');
 
-        $user = DB::table('user')
-            ->where('login', $credentials['login'])
-            ->first();
+        $user = $this->getFirstUserByLogin($credentials['login']);
 
-        if(Hash::check($request->input('password'), $user->password)){
+        if($this->checkPasswordOfUser($request, $user)){
             $apikey = base64_encode(Str::random(40));
 
-            DB::table('user')
-                ->where('login', $credentials['login'])
-                ->update(['api_key' => $apikey]);
+            $this->updateUserApiKeyByLogin($credentials['login'], $apikey);
 
             return response()->json([
                 'status' => 'success',
@@ -50,7 +46,7 @@ class UserController extends Controller
         ]);
 
         $user_data = $request->all();
-        $user_data["password"] = Hash::make($user_data["password"]);
+        $user_data["password"] = $this->hashUserPassword($user_data["password"]);
 
         $user = User::create($user_data);
 
@@ -72,9 +68,7 @@ class UserController extends Controller
         $user = User::where('id', $id)->first();
 
         if(!empty($user)){
-            $user->name = $request->name;
-            $user->login = $request->login;
-            $user->password = Hash::make($request->password);
+            $this->bindUserDataByRequestData($request, $user);
 
             if($user->save()){
                 return response()->json(['status' => 'success', 'data' => $user->getAttributes()], 200);
@@ -95,5 +89,31 @@ class UserController extends Controller
         }else{
             return response()->json(['error' => 'user not found'], 404);
         }
+    }
+
+    public function getFirstUserByLogin($login): object|null {
+        return DB::table('user')
+            ->where('login', $login)
+            ->first();
+    }
+
+    public function checkPasswordOfUser(Request $request, ?object $user): bool {
+        return Hash::check($request->input('password'), $user->password);
+    }
+
+    public function updateUserApiKeyByLogin($login, string $apikey): void {
+        DB::table('user')
+            ->where('login', $login)
+            ->update(['api_key' => $apikey]);
+    }
+
+    public function hashUserPassword($password): string {
+        return Hash::make($password);
+    }
+
+    public function bindUserDataByRequestData(Request $request, $user): void {
+        $user->name = $request->name;
+        $user->login = $request->login;
+        $user->password = Hash::make($request->password);
     }
 }

@@ -9,13 +9,14 @@
 <script>
 import MenuHome from "@/components/MenuHome.vue";
 import ClientsTable from "@/components/ClientsTable.vue";
+import router from "@/router";
+
 export default {
   components: {ClientsTable, MenuHome},
   name: "ClientsView",
   methods:{
     newClient(){
-      //TODO: open new client view
-      //router.push({ path: '/client/new' })
+      router.push({ path: '/clients/new' })
     }
   }
 }
