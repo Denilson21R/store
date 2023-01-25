@@ -1,5 +1,4 @@
 <template>
-  <MenuLanding></MenuLanding>
   <div class="container m-6 form-login">
     <h1 class="title">Cadastrar-se</h1>
     <form @submit.prevent="submitSignUp">
@@ -30,6 +29,7 @@
       <div class="field is-grouped">
         <div class="control">
           <button type="submit" class="button is-link">Cadastrar</button>
+          <RouterLink to="/"><button class="button is-dark mx-1">Login</button></RouterLink>
         </div>
       </div>
     </form>
@@ -39,10 +39,8 @@
 <script>
 import axios from 'axios'
 import * as bulmaToast from "bulma-toast";
-import MenuLanding from "@/components/MenuLanding.vue";
 
 export default {
-  components: {MenuLanding},
   data() {
     return {
       name: null,

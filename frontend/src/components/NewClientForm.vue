@@ -39,8 +39,10 @@ export default {
   },
   methods: {
     submitNewClient(){
-      if(this.nameValid){
+      if(this.verifySessionIsValid() && this.nameValid){
         this.requestSaveClient()
+      }else if(!this.verifySessionIsValid() && this.nameValid){
+        router.push({ path: '/' })
       }else{
         this.toast("Campos obrigatórios não foram preenchidos corretamente", "is-danger")
       }
@@ -62,6 +64,9 @@ export default {
           this.toast("Ocorreu um erro ao salvar o cliente!", "is-danger")
         }
       })
+    },
+    verifySessionIsValid(){
+      return !!sessionStorage.getItem('token');
     },
     toast(message, type){
       bulmaToast.toast({

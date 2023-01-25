@@ -1,5 +1,4 @@
 <template>
-  <MenuLanding/>
   <div class="container m-6 form-login">
     <h1 class="title">Login</h1>
     <form @submit.prevent="submitLogin">
@@ -18,6 +17,7 @@
       <div class="field is-grouped">
         <div class="control">
           <button type="submit" class="button is-link">Login</button>
+          <RouterLink to="/signup"><button class="button is-dark mx-1">Cadastro</button></RouterLink>
         </div>
       </div>
     </form>
@@ -28,10 +28,8 @@
 import axios from 'axios'
 import router from "@/router";
 import * as bulmaToast from 'bulma-toast'
-import MenuLanding from "@/components/MenuLanding.vue";
 
 export default {
-  components: {MenuLanding},
   data() {
     return {
       login: null,

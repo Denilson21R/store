@@ -17,6 +17,14 @@ export default {
   methods:{
     newClient(){
       router.push({ path: '/clients/new' })
+    },
+    verifySessionIsValid(){
+      return !!sessionStorage.getItem('token')
+    }
+  },
+  mounted() {
+    if(!this.verifySessionIsValid()){
+      router.push({ path: '/' })
     }
   }
 }

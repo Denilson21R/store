@@ -28,6 +28,7 @@
 import axios from "axios";
 import * as bulmaToast from "bulma-toast";
 import productDetailedCell from "@/components/ProductDetailedCell.vue";
+import router from "@/router";
 
 export default {
   name: "ProductsTable",
@@ -55,10 +56,17 @@ export default {
           })
         }
       })
+    },
+    verifySessionIsValid(){
+      return !!sessionStorage.getItem('token');
     }
   },
   mounted() {
-    this.requestGetAllProducts()
+    if(this.verifySessionIsValid()){
+      this.requestGetAllProducts()
+    }else{
+      router.push({ path: '/' })
+    }
   }
 }
 </script>

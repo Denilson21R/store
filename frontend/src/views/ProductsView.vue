@@ -17,11 +17,18 @@ export default {
   methods:{
     openFormNewSale(){
       router.push({ path: '/products/new' })
+    },
+    verifySessionIsValid(){
+      return !!sessionStorage.getItem('token')
+    }
+  },
+  mounted() {
+    if(!this.verifySessionIsValid()){
+      router.push({ path: '/' })
     }
   }
 }
 </script>
 
 <style scoped>
-
 </style>

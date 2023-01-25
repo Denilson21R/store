@@ -27,6 +27,7 @@
 <script>
 import * as bulmaToast from "bulma-toast";
 import axios from 'axios'
+import router from "@/router";
 
 export default {
   name: "ProfileForm",
@@ -40,24 +41,12 @@ export default {
       repeatPassword: null,
     }
   },
-  computed: {
-    nameValid(){
-      return !!(this.name && this.name.length >= 3)
-    },
-    loginValid(){
-      return !!(this.login && this.login.length >= 6)
-    },
-    passwordValid(){
-      return !!(this.password && this.password.length >= 6)
-    },
-    repeatPasswordValid(){
-      return !!(this.repeatPassword && this.repeatPassword.length >= 6 && this.repeatPassword === this.password)
-    }
-  },
   methods: {
     saveProfile(){
-      if(this.nameValid && this.loginValid && this.passwordValid && this.repeatPasswordValid){
+      if(this.nameValid && this.loginValid && this.passwordValid && this.repeatPasswordValid && this.verifySessionIsValid()){
         this.requestUpdateUserData()
+      }else if(!this.verifySessionIsValid()){
+        router.push({ path: '/' })
       }else{
         this.toast("Preencha os campos corretamente!", "is-danger")
       }
@@ -85,12 +74,29 @@ export default {
       sessionStorage.setItem('login', this.login)
       sessionStorage.setItem('name', this.name)
     },
+    verifySessionIsValid(){
+      return !!sessionStorage.getItem('token');
+    },
     toast(message, type){
       bulmaToast.toast({
         message: message,
         type: type,
         dismissible: true
       })
+    }
+  },
+  computed: {
+    nameValid(){
+      return !!(this.name && this.name.length >= 3)
+    },
+    loginValid(){
+      return !!(this.login && this.login.length >= 6)
+    },
+    passwordValid(){
+      return !!(this.password && this.password.length >= 6)
+    },
+    repeatPasswordValid(){
+      return !!(this.repeatPassword && this.repeatPassword.length >= 6 && this.repeatPassword === this.password)
     }
   }
 }

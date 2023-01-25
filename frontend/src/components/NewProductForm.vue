@@ -39,8 +39,10 @@ export default {
   },
   methods:{
     submitNewProduct(){
-      if(this.valueValid && this.nameValid && this.descriptionValid){
+      if(this.valueValid && this.nameValid && this.descriptionValid && this.verifySessionIsValid()){
         this.requestSaveNewProduct()
+      }else if(!this.verifySessionIsValid()){
+        router.push({ path: '/' })
       }else{
         this.toast("Campos obrigatórios não foram preenchidos corretamente", "is-danger")
       }
@@ -62,6 +64,9 @@ export default {
           this.toast("Ocorreu um erro ao salvar o produto!", "is-danger")
         }
       })
+    },
+    verifySessionIsValid(){
+      return !!sessionStorage.getItem('token');
     },
     toast(message, type){
       bulmaToast.toast({

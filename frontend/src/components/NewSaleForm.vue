@@ -90,6 +90,15 @@ export default {
         }
       })
     },
+    submitNewSale(){
+      if(this.clientValid && this.valueValid && this.selectedProducts.length > 0 && this.verifySessionIsValid()){
+        this.requestSaveNewSale()
+      }else if(!this.verifySessionIsValid()){
+        router.push({ path: '/' })
+      }else{
+        this.toast("Campos obrigatórios não foram preenchidos", "is-danger")
+      }
+    },
     requestSaveNewSale(){
       axios.post("http://localhost:8000/api/sale", {
         id_client: this.clientId,
@@ -109,12 +118,8 @@ export default {
         }
       })
     },
-    submitNewSale(){
-      if(this.clientValid && this.valueValid && this.selectedProducts.length > 0){
-        this.requestSaveNewSale()
-      }else{
-        this.toast("Campos obrigatórios não foram preenchidos", "is-danger")
-      }
+    verifySessionIsValid(){
+      return !!sessionStorage.getItem('token');
     },
     toast(message, type){
       bulmaToast.toast({
@@ -142,8 +147,12 @@ export default {
     },
   },
   mounted() {
-    this.requestGetAllProducts()
-    this.requestGetAllClients()
+    if(this.verifySessionIsValid()) {
+      this.requestGetAllProducts()
+      this.requestGetAllClients()
+    }else{
+      router.push({ path: '/' })
+    }
   }
 }
 </script>

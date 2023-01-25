@@ -15,6 +15,7 @@ import MenuHome from "@/components/MenuHome.vue";
 import HomeStatsCard from "@/components/HomeStatsCard.vue";
 import axios from "axios";
 import * as bulmaToast from "bulma-toast";
+import router from "@/router";
 
 export default {
   components: {MenuHome, HomeStatsCard},
@@ -31,13 +32,6 @@ export default {
     }
   },
   methods:{
-    toast(message, type){
-      bulmaToast.toast({
-        message: message,
-        type: type,
-        dismissible: true
-      })
-    },
     requestGetSaleStats(){
       axios.get('http://localhost:8000/api/sale-stats', {
         headers: {
@@ -77,12 +71,26 @@ export default {
           this.toast("Ocorreu um erro ao obter a quantidade de clientes!", "is-danger")
         }
       })
+    },
+    toast(message, type){
+      bulmaToast.toast({
+        message: message,
+        type: type,
+        dismissible: true
+      })
+    },
+    verifySessionIsValid(){
+      return !!sessionStorage.getItem('token');
     }
   },
   mounted() {
-    this.requestGetSaleStats()
-    this.requestGetClientsStats()
-    this.requestGetProductsStats()
+    if(this.verifySessionIsValid()){
+      this.requestGetSaleStats()
+      this.requestGetClientsStats()
+      this.requestGetProductsStats()
+    }else{
+      router.push({ path: '/' })
+    }
   }
 }
 </script>

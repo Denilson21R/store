@@ -8,9 +8,21 @@
 <script>
 import MenuHome from "@/components/MenuHome.vue";
 import ProfileForm from "@/components/ProfileForm.vue";
+import router from "@/router";
+
 export default {
   components: {MenuHome, ProfileForm},
-  name: "ProfileView"
+  name: "ProfileView",
+  methods: {
+    verifySessionIsValid(){
+      return !!sessionStorage.getItem('token')
+    }
+  },
+  mounted() {
+    if(!this.verifySessionIsValid()){
+      router.push({ path: '/'})
+    }
+  }
 }
 </script>
 

@@ -28,6 +28,7 @@
 import axios from "axios";
 import * as bulmaToast from "bulma-toast";
 import ClientCell from "@/components/ClientCell.vue";
+import router from "@/router";
 
 export default {
   name: "ClientsTable",
@@ -55,10 +56,17 @@ export default {
           })
         }
       })
+    },
+    verifySessionIsValid(){
+      return !!sessionStorage.getItem('token');
     }
   },
   mounted() {
-    this.requestGetAllClients()
+    if(this.verifySessionIsValid()){
+      this.requestGetAllClients()
+    }else{
+      router.push({ path: '/' })
+    }
   }
 }
 </script>

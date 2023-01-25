@@ -27,7 +27,11 @@ export default {
   },
   methods: {
     deleteClient(){
-      this.requestDeleteClient()
+      if(this.verifySessionIsValid()){
+        this.requestDeleteClient()
+      }else{
+        router.push({ path: '/' })
+      }
     },
     updateClient(){
       router.push({ path: '/client/' + this.client.id })
@@ -47,6 +51,9 @@ export default {
           this.toast("Ocorreu um erro ao deletar o cliente", "is-danger")
         }
       })
+    },
+    verifySessionIsValid(){
+      return !!sessionStorage.getItem('token');
     },
     toast(message, type){
       bulmaToast.toast({

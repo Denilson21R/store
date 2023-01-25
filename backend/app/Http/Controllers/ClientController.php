@@ -17,7 +17,7 @@ class ClientController extends Controller
 
     public function getAllClients(Request $request) : JsonResponse {
         if(Auth::check()){
-            $clients = Client::all();
+            $clients = Client::orderBy('name')->get();
             return response()->json(['status' => 'success', 'data' => $clients], 200);
         }else{
             return response()->json(['status' => 'fail'], 401);

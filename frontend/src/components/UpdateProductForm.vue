@@ -38,8 +38,10 @@ export default {
   },
   methods:{
     updateProduct(){
-      if(this.valueValid && this.nameValid && this.descriptionValid){
+      if(this.valueValid && this.nameValid && this.descriptionValid && this.verifySessionIsValid()){
         this.requestUpdateProduct()
+      }else if(!this.verifySessionIsValid()){
+        router.push({ path: '/' })
       }else{
         this.toast("Campos obrigatórios não foram preenchidos corretamente", "is-danger")
       }
@@ -80,6 +82,9 @@ export default {
         router.push({ path: '/products' })
       }
     },
+    verifySessionIsValid(){
+      return !!sessionStorage.getItem('token');
+    },
     toast(message, type){
       bulmaToast.toast({
         message: message,
@@ -100,7 +105,11 @@ export default {
     }
   },
   mounted() {
-    this.requestGetProductById()
+    if(this.verifySessionIsValid()){
+      this.requestGetProductById()
+    }else{
+      router.push({ path: '/' })
+    }
   }
 }
 </script>

@@ -15,7 +15,7 @@ class ProductController extends Controller
 
     public function getAllProducts(Request $request) : JsonResponse {
         if(Auth::check()){
-            $products = Product::all();
+            $products = Product::orderBy('name')->get();
             return response()->json(['status' => 'success', 'data' => $products], 200);
         }else{
             return response()->json(['status' => 'fail'], 401);

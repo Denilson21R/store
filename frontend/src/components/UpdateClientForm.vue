@@ -56,8 +56,10 @@ export default {
       }
     },
     submitNewClient(){
-      if(this.nameValid){
+      if(this.nameValid && this.verifySessionIsValid()){
         this.requestUpdateClient()
+      }else if(!this.verifySessionIsValid()){
+        router.push({ path: '/' })
       }else{
         this.toast("Campos obrigatórios não foram preenchidos corretamente", "is-danger")
       }
@@ -80,6 +82,9 @@ export default {
         }
       })
     },
+    verifySessionIsValid(){
+      return !!sessionStorage.getItem('token');
+    },
     toast(message, type){
       bulmaToast.toast({
         message: message,
@@ -88,12 +93,16 @@ export default {
       })
     }
   },
-  mounted() {
-    this.requestGetClientById()
-  },
   computed: {
     nameValid(){
       return !!(this.client.name != null && this.client.name.length >= 3) //only the name is required, if name is valid then the entire form are valid too
+    }
+  },
+  mounted() {
+    if(this.verifySessionIsValid()){
+      this.requestGetClientById()
+    }else{
+      router.push({ path: '/' })
     }
   }
 }

@@ -34,6 +34,26 @@ export default {
   },
   name: "SalesView",
   methods:{
+    requestGetAllSales(){
+      axios.get('http://localhost:8000/api/sale', {
+        headers: {
+          Authorization: 'Bearer ' + this.token
+        }
+      }).then((response)=>{
+        if (response.status === 200){
+          this.sales = response.data.data
+        }else{
+          bulmaToast.toast({
+            message: "Ocorreu um erro ao obter as vendas!",
+            type: 'is-danger',
+            dismissible: true
+          })
+        }
+      })
+    },
+    openFormNewSale(){
+      router.push({ path: '/sales/new' })
+    },
     deleteCardInList(id){
       this.sales.forEach((sale)=>{
         if(sale.id === id){
@@ -47,26 +67,16 @@ export default {
         this.sales.splice(index, 1);
       }
     },
-    openFormNewSale(){
-      router.push({ path: '/sales/new' })
+    verifySessionIsValid(){
+      return !!sessionStorage.getItem('token')
     }
   },
   mounted() {
-    axios.get('http://localhost:8000/api/sale', {
-      headers: {
-        Authorization: 'Bearer ' + this.token
-      }
-    }).then((response)=>{
-      if (response.status === 200){
-        this.sales = response.data.data
-      }else{
-        bulmaToast.toast({
-          message: "Ocorreu um erro ao obter as vendas!",
-          type: 'is-danger',
-          dismissible: true
-        })
-      }
-    })
+    if(this.verifySessionIsValid()){
+      this.requestGetAllSales()
+    }else{
+      router.push({ path: '/'})
+    }
   }
 }
 </script>

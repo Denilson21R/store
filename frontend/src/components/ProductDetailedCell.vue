@@ -27,7 +27,11 @@ export default {
   },
   methods: {
     deleteProduct(){
-      this.requestDeleteProduct()
+      if(this.verifySessionIsValid()){
+        this.requestDeleteProduct()
+      }else{
+        router.push({ path: '/' })
+      }
     },
     updateProduct(){
       router.push({ path: '/product/' + this.product.id })
@@ -47,6 +51,9 @@ export default {
           this.toast("Ocorreu um erro ao deletar o produto", "is-danger")
         }
       })
+    },
+    verifySessionIsValid(){
+      return !!sessionStorage.getItem('token');
     },
     toast(message, type){
       bulmaToast.toast({

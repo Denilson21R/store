@@ -8,9 +8,9 @@
           <p><span>Valor: <span class="tag">R$ {{sale.total_value.toFixed(2)}}</span></span></p>
         </div>
       </div>
-      <div class="card-footer ">
-          <button class="button is-link my-2 ml-6" @click="detailSale(this.sale)">Detalhar</button>
-          <button class="button is-danger my-2 ml-2 mr-6" @click="requestDeleteSale(this.sale.id)">Deletar</button>
+      <div class="card-footer">
+        <button class="button is-link my-2 ml-6" @click="detailSale(this.sale)">Detalhar</button>
+        <button class="button is-danger my-2 ml-2 mr-6" @click="deleteSale(this.sale.id)">Deletar</button>
       </div>
     </div>
   </div>
@@ -21,6 +21,7 @@ import moment from 'moment';
 import axios from "axios";
 import * as bulmaToast from "bulma-toast";
 import router from "@/router";
+
 export default {
   name: "SaleCard",
   props: {
@@ -31,16 +32,16 @@ export default {
       hidden: ""
     }
   },
-  computed: {
-    formatDate(){
-      return(value)=>{
-        return moment(String(value)).format('DD/MM/YYYY hh:mm')
-      }
-    }
-  },
   methods: {
     detailSale(sale){
       router.push({ path: '/sale/' + sale.id })
+    },
+    deleteSale(){
+      if(this.verifySessionIsValid()){
+        this.requestDeleteSale(this.sale.id)
+      }else{
+        router.push({ path: '/' })
+      }
     },
     requestDeleteSale(id){
       axios.delete('http://localhost:8000/api/sale/' + id, {
@@ -60,12 +61,22 @@ export default {
       this.hidden = "is-hidden"
       this.$emit('deleteCard', id)
     },
+    verifySessionIsValid(){
+      return !!sessionStorage.getItem('token');
+    },
     toast(message, type){
       bulmaToast.toast({
         message: message,
         type: type,
         dismissible: true
       })
+    }
+  },
+  computed: {
+    formatDate(){
+      return(value)=>{
+        return moment(String(value)).format('DD/MM/YYYY hh:mm')
+      }
     }
   }
 }
