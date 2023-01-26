@@ -47,6 +47,24 @@ class ClientControllerTest extends TestCase
         );
     }
 
+    public function testCanFilterClients()
+    {
+        //prepare
+        $token_jwt = $this->authenticate();
+
+        //act
+        $clients = $this->get("/api/client/search/a", ['Authorization' => $token_jwt]);
+
+        //assert
+        $clients->assertResponseStatus(200);
+        $clients->seeJsonStructure(
+            [
+                'status',
+                'data'
+            ]
+        );
+    }
+
     public function testCanAddClient()
     {
         //prepare

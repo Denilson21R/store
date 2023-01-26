@@ -68,6 +68,6 @@ export default {
 
 <style scoped>
 .address{
-  width: 52%
+  width: 48%
 }
 </style>

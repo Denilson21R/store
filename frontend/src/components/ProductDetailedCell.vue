@@ -68,6 +68,6 @@ export default {
 
 <style scoped>
 .description{
-  width: 60%
+  width: 52%
 }
 </style>

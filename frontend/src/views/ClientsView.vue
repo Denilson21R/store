@@ -1,8 +1,15 @@
 <template>
   <MenuHome tab="clients"/>
-  <button class="button is-info ml-6" @click="newClient">Novo cliente</button>
+  <div class="columns mt-4">
+    <div class="column">
+      <button class="button is-info ml-6" @click="newClient">Novo cliente</button>
+    </div>
+    <div class="column">
+      <ClientSearchField @search="updateTableSearch"/>
+    </div>
+  </div>
   <div class="m-6">
-    <ClientsTable/>
+    <ClientsTable :search="search"/>
   </div>
 </template>
 
@@ -10,16 +17,26 @@
 import MenuHome from "@/components/MenuHome.vue";
 import ClientsTable from "@/components/ClientsTable.vue";
 import router from "@/router";
+import ClientSearchField from "@/components/ClientSearchField.vue";
+
 
 export default {
-  components: {ClientsTable, MenuHome},
+  components: {ClientsTable, MenuHome, ClientSearchField},
   name: "ClientsView",
+  data(){
+    return {
+      search: null
+    }
+  },
   methods:{
     newClient(){
       router.push({ path: '/clients/new' })
     },
     verifySessionIsValid(){
       return !!sessionStorage.getItem('token')
+    },
+    updateTableSearch(nameSearch){
+      this.search = nameSearch
     }
   },
   mounted() {
@@ -31,5 +48,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

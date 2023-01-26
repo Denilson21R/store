@@ -47,25 +47,6 @@ class SaleControllerTest extends TestCase
         );
     }
 
-    public function testCanGetSalesByUserId(){
-        //prepare
-        $token_jwt = $this->authenticate();
-
-        $sale = Sale::factory()->create();
-
-        //act
-        $sale = $this->get("/api/sale/user/".$sale->id_user, ['Authorization' => $token_jwt]);
-
-        //assert
-        $sale->assertResponseStatus(200);
-        $sale->seeJsonStructure(
-            [
-                'status',
-                'data'
-            ]
-        );
-    }
-
     public function testCanGetSaleById()
     {
         //prepare

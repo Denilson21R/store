@@ -26,16 +26,6 @@ class SaleController extends Controller
         }
     }
 
-    public function getSalesByUser(Request $request, int $id): JsonResponse{
-        if(Auth::check()) {
-            $sales = Sale::where('id_user', $id)->get();
-            $this->fillDataOfSales($sales);
-            return response()->json(['status' => 'success', 'data' => $sales], 200);
-        }else{
-            return response()->json(['status' => 'fail'], 401);
-        }
-    }
-
     public function getSaleById(Request $request, int $id) : JsonResponse {
         if(Auth::check()){
             $sale = Sale::where('id', $id)->first();

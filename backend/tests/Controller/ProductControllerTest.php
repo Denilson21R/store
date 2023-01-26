@@ -47,6 +47,24 @@ class ProductControllerTest extends TestCase
         );
     }
 
+    public function testCanFilterProducts()
+    {
+        //prepare
+        $token_jwt = $this->authenticate();
+
+        //act
+        $products = $this->get("/api/product/search/a", ['Authorization' => $token_jwt]);
+
+        //assert
+        $products->assertResponseStatus(200);
+        $products->seeJsonStructure(
+            [
+                'status',
+                'data'
+            ]
+        );
+    }
+
     public function testCanAddProduct()
     {
         //prepare

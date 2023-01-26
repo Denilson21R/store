@@ -33,6 +33,9 @@ import router from "@/router";
 export default {
   name: "ProductsTable",
   components: {productDetailedCell},
+  props:{
+    search: String
+  },
   data() {
     return {
       products: null,
@@ -57,8 +60,35 @@ export default {
         }
       })
     },
+    requestGetProductsWithNameFilter(name){
+      axios.get('http://localhost:8000/api/product/search/'+name, {
+        headers: {
+          Authorization: 'Bearer ' + this.token
+        }
+      }).then((response)=>{
+        if (response.status === 200){
+          this.products = response.data.data
+        }else{
+          bulmaToast.toast({
+            message: "Ocorreu um erro ao filtrar os produtos!",
+            type: 'is-danger',
+            dismissible: true
+          })
+        }
+      })
+    },
     verifySessionIsValid(){
       return !!sessionStorage.getItem('token');
+    }
+  },
+  watch:{
+    search(newSearch){
+      if(newSearch !== ""){
+        alert(newSearch)
+        this.requestGetProductsWithNameFilter(newSearch)
+      }else{
+        this.requestGetAllProducts()
+      }
     }
   },
   mounted() {

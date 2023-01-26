@@ -1,4 +1,5 @@
 <template>
+
   <div v-if="clients && clients.length > 0">
     <table class="table is-bordered">
       <thead class="has-background-link-light">
@@ -33,6 +34,9 @@ import router from "@/router";
 export default {
   name: "ClientsTable",
   components: {ClientCell},
+  props:{
+    search: String
+  },
   data() {
     return {
       clients: null,
@@ -57,8 +61,34 @@ export default {
         }
       })
     },
+    requestGetClientsWithNameFilter(name){
+      axios.get('http://localhost:8000/api/client/search/'+name, {
+        headers: {
+          Authorization: 'Bearer ' + this.token
+        }
+      }).then((response)=>{
+        if (response.status === 200){
+          this.clients = response.data.data
+        }else{
+          bulmaToast.toast({
+            message: "Ocorreu um erro ao filtrar os clientes!",
+            type: 'is-danger',
+            dismissible: true
+          })
+        }
+      })
+    },
     verifySessionIsValid(){
       return !!sessionStorage.getItem('token');
+    }
+  },
+  watch:{
+    search(newSearch){
+      if(newSearch !== ""){
+        this.requestGetClientsWithNameFilter(newSearch)
+      }else{
+        this.requestGetAllClients()
+      }
     }
   },
   mounted() {

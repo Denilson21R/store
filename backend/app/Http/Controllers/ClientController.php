@@ -24,6 +24,32 @@ class ClientController extends Controller
         }
     }
 
+    public function getClientById(Request $request, int $id) : JsonResponse {
+        if(Auth::check()){
+            $client = Client::where('id', $id)->first();
+            if(!empty($client)){
+                return response()->json(['status' => 'success', 'data' => $client->getAttributes()], 200);
+            }else{
+                return response()->json(['error' => 'client not found'], 404);
+            }
+        }else{
+            return response()->json(['status' => 'fail'], 401);
+        }
+    }
+
+    public function searchClient(Request $request, string $name) : JsonResponse {
+        if(Auth::check()){
+            $clients = Client::where('name', 'LIKE', '%'.$name.'%')->get();
+            if(!empty($clients)){
+                return response()->json(['status' => 'success', 'data' => $clients], 200);
+            }else{
+                return response()->json(204);
+            }
+        }else{
+            return response()->json(['status' => 'fail'], 401);
+        }
+    }
+
     public function addClient(Request $request) : JsonResponse {
         $this->validate($request, [
             'name' => 'required'
@@ -41,18 +67,7 @@ class ClientController extends Controller
         }
     }
 
-    public function getClientById(Request $request, int $id) : JsonResponse {
-        if(Auth::check()){
-            $client = Client::where('id', $id)->first();
-            if(!empty($client)){
-                return response()->json(['status' => 'success', 'data' => $client->getAttributes()], 200);
-            }else{
-                return response()->json(['error' => 'client not found'], 404);
-            }
-        }else{
-            return response()->json(['status' => 'fail'], 401);
-        }
-    }
+
 
     public function updateClient(Request $request, int $id) : JsonResponse {
         $this->validate($request, [

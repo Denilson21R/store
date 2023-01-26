@@ -35,6 +35,19 @@ class ProductController extends Controller
         }
     }
 
+    public function searchProduct(Request $request, string $name) : JsonResponse {
+        if(Auth::check()){
+            $products = Product::where('name', 'LIKE', '%'.$name.'%')->get();
+            if(!empty($products)){
+                return response()->json(['status' => 'success', 'data' => $products], 200);
+            }else{
+                return response()->json(204);
+            }
+        }else{
+            return response()->json(['status' => 'fail'], 401);
+        }
+    }
+
     public function addProduct(Request $request) : JsonResponse {
         $this->validate($request, [
             'name' => 'required',
