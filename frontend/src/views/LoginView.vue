@@ -1,7 +1,7 @@
 <template>
-  <div class="container m-6 form-login">
-    <h1 class="title">Login</h1>
-    <form @submit.prevent="submitLogin">
+  <div class="container mt-6 form-login">
+    <h1 class="title has-text-centered">Login</h1>
+    <form @submit.prevent="submitLogin" class="mt-5">
       <div class="field">
         <label class="label">Login</label>
         <div class="control">
@@ -17,7 +17,7 @@
       <div class="field is-grouped">
         <div class="control">
           <button type="submit" class="button is-link">Login</button>
-          <RouterLink to="/signup"><button class="button is-dark mx-1">Cadastro</button></RouterLink>
+          <RouterLink to="/signup"><button class="button is-dark mx-1">Ir para cadastro</button></RouterLink>
         </div>
       </div>
     </form>
@@ -79,4 +79,7 @@ function saveSession(response) {
 </script>
 
 <style scoped>
+.form-login{
+  margin-inline: 20%;
+}
 </style>

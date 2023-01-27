@@ -1,7 +1,7 @@
 <template>
-  <div class="container m-6 form-login">
-    <h1 class="title">Cadastrar-se</h1>
-    <form @submit.prevent="submitSignUp">
+  <div class="container mt-6 form-signup">
+    <h1 class="title has-text-centered">Cadastrar-se</h1>
+    <form @submit.prevent="submitSignUp" class="mt-5">
       <div class="field">
         <label class="label">Nome</label>
         <div class="control">
@@ -29,7 +29,7 @@
       <div class="field is-grouped">
         <div class="control">
           <button type="submit" class="button is-link">Cadastrar</button>
-          <RouterLink to="/"><button class="button is-dark mx-1">Login</button></RouterLink>
+          <RouterLink to="/"><button class="button is-dark mx-1">Ir para login</button></RouterLink>
         </div>
       </div>
     </form>
@@ -97,4 +97,7 @@ function resetForm() {
 </script>
 
 <style scoped>
+.form-signup{
+  margin-inline: 20%;
+}
 </style>

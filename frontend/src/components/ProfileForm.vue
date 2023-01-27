@@ -10,11 +10,11 @@
     </div>
     <div class="field">
       <label class="label">Nova Senha</label>
-      <input type="password" v-bind:class="{'input': true, 'is-success':passwordValid, 'is-danger':!passwordValid}" v-model="password">
+      <input type="password" v-bind:class="{'input': true, 'is-success':passwordValid, 'is-danger':!passwordValid && password != null}" v-model="password">
     </div>
     <div class="field">
       <label class="label">Repita a senha</label>
-      <input type="password" v-bind:class="{'input': true, 'is-success':repeatPasswordValid, 'is-danger':!repeatPasswordValid}" v-model="repeatPassword">
+      <input type="password" v-bind:class="{'input': true, 'is-success':repeatPasswordValid, 'is-danger':!repeatPasswordValid && repeatPassword != null}" v-model="repeatPassword">
     </div>
     <div class="field is-grouped">
       <div class="control">

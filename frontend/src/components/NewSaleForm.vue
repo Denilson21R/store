@@ -2,37 +2,44 @@
   <div class="container mx-6">
     <h1 class="title mx-6">Nova venda</h1>
     <form @submit.prevent="submitNewSale" class="mx-6">
-      <div class="field" v-if="clients && clients.length > 0">
-        <label class="label">Cliente</label>
-        <div class="select" v-bind:class="{'is-success':clientValid, 'is-danger':!clientValid}">
-          <select v-model="clientId" >
-            <option v-bind:value="null">Selecione um cliente</option>
-            <option v-for="client in clients" v-bind:key="client.id" v-bind:value="client.id">{{client.name}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="field" v-if="products && products.length > 0">
-        <label class="label">Produtos</label>
-        <div v-for="product in products" v-bind:key="product.id">
-          <label class="checkbox">
-            <input type="checkbox" v-bind:value="product" v-model="selectedProducts">
-            {{ product.name }} - R$ {{product.value}}
-          </label>
-          <br>
-        </div>
-      </div>
       <div class="columns">
-        <div class="column is-half">
-          <div class="field is-half">
-            <label class="label">Valor</label>
-            <input type="number" min="0.1" step="any" v-bind:class="{'input': true, 'is-success':valueValid, 'is-danger':!valueValid && totalValue != null}" v-model="totalValue">
+        <div class="column ">
+<!--          -->
+          <div class="field" v-if="products && products.length > 0">
+            <label class="label">Produtos</label>
+            <div v-for="product in products" v-bind:key="product.id">
+              <label class="checkbox">
+                <input type="checkbox" v-bind:value="product" v-model="selectedProducts">
+                {{ product.name }} - R$ {{product.value}}
+              </label>
+              <br>
+            </div>
           </div>
         </div>
-        <div class="column is-half" v-if="suggestedValue">
-          <div class="field is-half">
-            <div class="ml-4 mt-5">
-              <label class="label">Valor Sugerido</label>
-              R$ {{suggestedValue}}
+        <div class="column">
+          <div class="field" v-if="clients && clients.length > 0">
+            <label class="label">Cliente</label>
+            <div class="select" v-bind:class="{'is-success':clientValid, 'is-danger':!clientValid}">
+              <select v-model="clientId" >
+                <option v-bind:value="null">Selecione um cliente</option>
+                <option v-for="client in clients" v-bind:key="client.id" v-bind:value="client.id">{{client.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column is-half">
+              <div class="field is-half">
+                <label class="label">Valor</label>
+                <input type="number" min="0.1" step="any" v-bind:class="{'input': true, 'is-success':valueValid, 'is-danger':!valueValid && totalValue != null}" v-model="totalValue">
+              </div>
+            </div>
+            <div class="column is-half" v-if="suggestedValue">
+              <div class="field is-half">
+                <div class="ml-4 mt-5">
+                  <label class="label">Valor Sugerido</label>
+                  R$ {{suggestedValue}}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -135,7 +142,7 @@ export default {
       newSelected.forEach((product)=>{
         sumProductsValue = parseFloat(sumProductsValue) + parseFloat(product.value)
       })
-      this.suggestedValue = sumProductsValue
+      this.suggestedValue = sumProductsValue.toFixed(2)
     }
   },
   computed: {
